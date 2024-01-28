@@ -17,4 +17,7 @@ class JSONLSink(BatchSink):
         """
         with open(self.config.get("filepath"), 'at') as f:
             for record in context['records']:
-                f.write(json.dumps(record) + "\n")
+                entry = json.dumps(record) + "\n"
+                self.logger.info(str(entry))
+                f.write(str(entry))
+
