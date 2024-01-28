@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from singer_sdk.sinks import BatchSink
+import json
 
 class JSONLSink(BatchSink):
     """JSONL target sink class."""
@@ -15,4 +16,5 @@ class JSONLSink(BatchSink):
             context: Stream partition or context dictionary.
         """
         with open(self.config.get("filepath"), 'at') as f:
-            f.writelines(context["records"])
+            for record in context['records']:
+                f.write(json.dumps(record) + "\n")
